@@ -4,21 +4,22 @@ document.addEventListener("DOMContentLoaded", start);
 
 const drawPile = document.querySelector("#drawpile");
 const drawnCard = document.querySelector("#drawn");
-const cardColors = ["water", "fire", "air", "plant", "rock"];
+const cardElements = ["water", "fire", "air", "plant", "rock"];
 const handCards = document.querySelectorAll(".handcard");
 
 let handCardsNumber = 0;
 let randomCard = "";
 
-let cardsLeft = 20;
+let cardsLeft = 5;
 
 function getRandom() {
-    randomCard = cardColors[Math.floor(Math.random()*cardColors.length)];
+    randomCard = cardElements[Math.floor(Math.random()*cardElements.length)];
 }
 
 function start() {
     console.log("Hi");
     drawPile.classList.add("cardback");
+    drawPile.textContent = cardsLeft;
     drawPile.addEventListener("click", newCard);
 
     handCards.forEach(card => {
@@ -28,19 +29,19 @@ function start() {
 }
 
 function newCard(player) {
+    // if (player === "opponent") {
+    //     console.log("YOU LOSE");
+    // }
 
-    if (player === "opponent") {
-        console.log("YOU LOSE");
-    }
-
-    if (randomCard === "") {
+    if (randomCard === "" && cardsLeft > 0) {
 
         cardsLeft--;
+        drawPile.textContent = cardsLeft;
         console.log(cardsLeft);
 
     getRandom();
 
-    cardColors.forEach(color => {
+    cardElements.forEach(color => {
         drawnCard.classList.remove(`${color}`);
     });
 
@@ -54,7 +55,7 @@ function newCard(player) {
 
 function addCardToHand() {
     if (randomCard !== "") {
-    cardColors.forEach(color => {
+    cardElements.forEach(color => {
         drawnCard.classList.remove(`${color}`);
         this.classList.remove(`${color}`);
     });
@@ -63,7 +64,7 @@ function addCardToHand() {
 
     randomCard = "";
 
-    opponentDraw();
+    // opponentDraw();
     }
 }
 
