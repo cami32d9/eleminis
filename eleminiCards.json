@@ -1,0 +1,28 @@
+[
+  {
+    "element": "water",
+    "overwrites": ["rock", "fire"]
+  },
+  {
+    "element": "fire",
+    "overwrites": ["plant", "air"]
+  },
+  {
+    "element": "rock",
+    "overwrites": ["fire", "plant"]
+  },
+  {
+    "element": "air",
+    "overwrites": ["water", "rock"]
+  },
+  {
+    "element": "plant",
+    "overwrites": ["air", "water"]
+  },
+  {
+    "element": "star",
+    "overwrites": ["plant", "air", "fire", "rock", "water"]
+  }
+]
+
+//Water, Rock, Fire, Air, Plant
