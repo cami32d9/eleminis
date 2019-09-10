@@ -11,11 +11,11 @@ main {
     justify-content: space-between;
 }
 
-#hand, #enemyhand {
+.hand {
     background-color: rgba(146, 182, 195, 0.3);
 }
 
-.hand {
+.hand, .middle {
     height: 30%;
     width: 100%;
     display: flex;

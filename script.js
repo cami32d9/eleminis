@@ -1,75 +1,88 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", start);
+document.addEventListener("DOMContentLoaded", getJson);
+
+
+// ----- VARIABLES -----
+
+const cardElements = ["water", "fire", "air", "plant", "rock"];
 
 const drawPile = document.querySelector("#drawpile");
 const drawnCard = document.querySelector("#drawn");
-const cardElements = ["water", "fire", "air", "plant", "rock"];
 const handCards = document.querySelectorAll(".handcard");
 
-let handCardsNumber = 0;
+let cardsLeft = 5;
 let randomCard = "";
 
-let cardsLeft = 5;
+
+// ----- HELPING FUNCTIONS -----
+
+async function getJson() {
+    /* Loads the JSON */
+    let pagesUrl = "eleminiCards.json";
+    let jsonData = await fetch(pagesUrl);
+    let elements = await jsonData.json();
+    console.log(elements);
+
+    start();
+}
 
 function getRandom() {
-    randomCard = cardElements[Math.floor(Math.random()*cardElements.length)];
+    randomCard = cardElements[Math.floor(Math.random() * cardElements.length)];
 }
+
+
+// ----- START GAME -----
 
 function start() {
-    console.log("Hi");
-    drawPile.classList.add("cardback");
     drawPile.textContent = cardsLeft;
     drawPile.addEventListener("click", newCard);
-
-    handCards.forEach(card => {
-        handCardsNumber++;
-        card.classList.add(`handcard${handCardsNumber}`);
-    });
 }
 
-function newCard(player) {
-    // if (player === "opponent") {
-    //     console.log("YOU LOSE");
-    // }
 
+// ----- RUNNING GAME -----
+
+function newCard() {
+    // Only if drawnCard is 'empty' and there are cards left
     if (randomCard === "" && cardsLeft > 0) {
 
+        // Retract card from drawPile
         cardsLeft--;
         drawPile.textContent = cardsLeft;
-        console.log(cardsLeft);
 
-    getRandom();
+        // Get drawn card
+        getRandom();
+        drawnCard.classList.add(`${randomCard}`);
 
-    cardElements.forEach(color => {
-        drawnCard.classList.remove(`${color}`);
-    });
+        // Make drawn card placable on hand
+        handCards.forEach(card => {
+            card.addEventListener("click", addCardToHand);
+        });
 
-    drawnCard.classList.add(`${randomCard}`);
-
-    handCards.forEach(card => {
-      card.addEventListener("click", addCardToHand);
-    });
+        if (cardsLeft === 0) {
+            drawPile.style.visibility = "hidden";
+        }
     }
 }
 
 function addCardToHand() {
+    // Only if there is a drawnCard
     if (randomCard !== "") {
-    cardElements.forEach(color => {
-        drawnCard.classList.remove(`${color}`);
-        this.classList.remove(`${color}`);
-    });
 
-    this.classList.add(`${randomCard}`);
+        // Remove current card from drawnCard and the clicked card on hand
+        cardElements.forEach(element => {
+            drawnCard.classList.remove(`${element}`);
+            this.classList.remove(`${element}`);
+        });
 
-    randomCard = "";
+        // Adds the card to the clicked destination
+        this.classList.add(`${randomCard}`);
 
-    // opponentDraw();
+        // Resets randomCard
+        randomCard = "";
+
+        if (cardsLeft === 0) {
+            drawnCard.style.visibility = "hidden";
+        }
     }
-}
-
-function opponentDraw() {
-    setTimeout(function () {
-        newCard("opponent")
-    }, 1000);
 }

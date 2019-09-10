@@ -1,28 +1,27 @@
 [
   {
     "element": "water",
-    "overwrites": ["rock", "fire"]
+    "overwrites": ["rock", "fire"],
+    "cardsLeft": "2"
   },
   {
     "element": "fire",
-    "overwrites": ["plant", "air"]
+    "overwrites": ["plant", "air"],
+    "cardsLeft": "2"
   },
   {
     "element": "rock",
-    "overwrites": ["fire", "plant"]
+    "overwrites": ["fire", "plant"],
+    "cardsLeft": "2"
   },
   {
     "element": "air",
-    "overwrites": ["water", "rock"]
+    "overwrites": ["water", "rock"],
+    "cardsLeft": "2"
   },
   {
     "element": "plant",
-    "overwrites": ["air", "water"]
-  },
-  {
-    "element": "star",
-    "overwrites": ["plant", "air", "fire", "rock", "water"]
+    "overwrites": ["air", "water"],
+    "cardsLeft": "2"
   }
 ]
-
-//Water, Rock, Fire, Air, Plant
