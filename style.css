@@ -43,42 +43,43 @@ main {
     background-color: lightblue;
 }
 
-.bluecard {
+.water {
     background-color: cadetblue;
 }
 
-.bluecard:before {
-    content: "blue";
+.water:before {
+    content: "water";
 }
 
-.redcard {
+.fire {
     background-color: darkred;
 }
 
-.redcard:before {
-    content: "red";
+.fire:before {
+    content: "fire";
 }
 
-.yellowcard {
-    background-color: yellow;
-}
-
-.yellowcard:before {
-    content: "yellow";
-}
-
-.greencard {
+.plant {
     background-color: forestgreen;
 }
 
-.greencard:before {
-    content: "green";
+.plant:before {
+    content: "plant";
 }
 
-.browncard {
+.rock {
     background-color: saddlebrown;
 }
 
-.browncard:before {
-    content: "brown";
+.rock:before {
+    content: "rock";
+}
+
+
+.air {
+    background-color: dimgrey;
+}
+
+.air:before {
+    content: "air";
 }
