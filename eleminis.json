@@ -1,0 +1,37 @@
+[
+  {
+    "type": "card",
+    "cardType": "element",
+    "element": "water",
+    "overwrites": ["rock", "fire"],
+    "cardsLeft": 2
+  },
+  {
+    "type": "card",
+    "cardType": "element",
+    "element": "fire",
+    "overwrites": ["plant", "air"],
+    "cardsLeft": 2
+  },
+  {
+    "type": "card",
+    "cardType": "element",
+    "element": "rock",
+    "overwrites": ["fire", "plant"],
+    "cardsLeft": 2
+  },
+  {
+    "type": "card",
+    "cardType": "element",
+    "element": "air",
+    "overwrites": ["water", "rock"],
+    "cardsLeft": 2
+  },
+  {
+    "type": "card",
+    "cardType": "element",
+    "element": "plant",
+    "overwrites": ["air", "water"],
+    "cardsLeft": 2
+  }
+]

@@ -83,3 +83,7 @@ main {
 .air:before {
     content: "air";
 }
+
+div[data-element="star"] {
+    background-color: black;
+}

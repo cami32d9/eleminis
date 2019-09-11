@@ -11,30 +11,36 @@ const drawPile = document.querySelector("#drawpile");
 const drawnCard = document.querySelector("#drawn");
 const handCards = document.querySelectorAll(".handcard");
 
-let cardsLeft = 5;
+let cardsLeft = 0;
+let randomElement = "";
 let randomCard = "";
+let elements = [];
 
 
 // ----- HELPING FUNCTIONS -----
 
-async function getJson() {
-    /* Loads the JSON */
-    let pagesUrl = "eleminiCards.json";
-    let jsonData = await fetch(pagesUrl);
-    let elements = await jsonData.json();
-    console.log(elements);
-
-    start();
-}
-
 function getRandom() {
-    randomCard = cardElements[Math.floor(Math.random() * cardElements.length)];
+    randomElement = elements[Math.floor(Math.random() * elements.length)];
 }
 
 
 // ----- START GAME -----
 
+async function getJson() {
+    /* Loads the JSON */
+    let pagesUrl = "eleminis.json";
+    let jsonData = await fetch(pagesUrl);
+    elements = await jsonData.json();
+
+    start();
+}
+
 function start() {
+
+    elements.forEach(element => {
+        cardsLeft = cardsLeft + element.cardsLeft;
+    });
+
     drawPile.textContent = cardsLeft;
     drawPile.addEventListener("click", newCard);
 }
@@ -44,23 +50,36 @@ function start() {
 
 function newCard() {
     // Only if drawnCard is 'empty' and there are cards left
-    if (randomCard === "" && cardsLeft > 0) {
 
-        // Retract card from drawPile
-        cardsLeft--;
-        drawPile.textContent = cardsLeft;
+    // console.log(randomElement.cardsLeft);
+
+    if (randomCard === "" && cardsLeft > 0) {
 
         // Get drawn card
         getRandom();
-        drawnCard.classList.add(`${randomCard}`);
+        if (randomElement.cardsLeft > 0) {
+            randomCard = randomElement.element;
+            drawnCard.classList.add(`${randomCard}`);
 
-        // Make drawn card placable on hand
-        handCards.forEach(card => {
-            card.addEventListener("click", addCardToHand);
-        });
+            // Retract card from drawPile
+            cardsLeft--;
+            drawPile.textContent = cardsLeft;
 
-        if (cardsLeft === 0) {
-            drawPile.style.visibility = "hidden";
+
+            randomElement.cardsLeft--;
+            console.log(randomElement.cardsLeft);
+
+            // Make drawn card placable on hand
+            handCards.forEach(card => {
+                card.addEventListener("click", addCardToHand);
+            });
+
+            if (cardsLeft === 0) {
+                drawPile.style.visibility = "hidden";
+            }
+        }
+        else {
+            newCard();
         }
     }
 }
@@ -68,6 +87,8 @@ function newCard() {
 function addCardToHand() {
     // Only if there is a drawnCard
     if (randomCard !== "") {
+
+        if (randomCard)
 
         // Remove current card from drawnCard and the clicked card on hand
         cardElements.forEach(element => {
